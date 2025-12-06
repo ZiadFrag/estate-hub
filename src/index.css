@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    --primary: 215 50% 23%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 215 25% 25%;
+
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 38 92% 50%;
+    --accent-foreground: 215 25% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 215 25% 15%;
+
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 215 50% 23%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 215 50% 18%;
+    --sidebar-foreground: 210 30% 90%;
+    --sidebar-primary: 38 92% 50%;
+    --sidebar-primary-foreground: 215 25% 15%;
+    --sidebar-accent: 215 45% 25%;
+    --sidebar-accent-foreground: 210 30% 95%;
+    --sidebar-border: 215 40% 25%;
+    --sidebar-ring: 38 92% 50%;
+
+    --chart-1: 215 50% 40%;
+    --chart-2: 38 92% 50%;
+    --chart-3: 142 76% 36%;
+    --chart-4: 262 52% 47%;
+    --chart-5: 0 84% 60%;
+
+    --gradient-gold: linear-gradient(135deg, hsl(38, 92%, 50%) 0%, hsl(45, 93%, 47%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(215, 50%, 23%) 0%, hsl(215, 45%, 35%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(210, 20%, 98%) 100%);
+
+    --shadow-sm: 0 1px 2px 0 hsl(215 25% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(215 25% 15% / 0.1), 0 2px 4px -2px hsl(215 25% 15% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(215 25% 15% / 0.1), 0 4px 6px -4px hsl(215 25% 15% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(215 25% 15% / 0.1), 0 8px 10px -6px hsl(215 25% 15% / 0.1);
+    --shadow-gold: 0 4px 14px 0 hsl(38 92% 50% / 0.3);
+  }
+
+  .dark {
+    --background: 215 30% 10%;
+    --foreground: 210 30% 95%;
+
+    --card: 215 30% 13%;
+    --card-foreground: 210 30% 95%;
+
+    --popover: 215 30% 13%;
+    --popover-foreground: 210 30% 95%;
+
+    --primary: 38 92% 50%;
+    --primary-foreground: 215 25% 15%;
+
+    --secondary: 215 30% 18%;
+    --secondary-foreground: 210 30% 90%;
+
+    --muted: 215 30% 18%;
+    --muted-foreground: 215 20% 60%;
+
+    --accent: 38 92% 50%;
+    --accent-foreground: 215 25% 15%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 30% 20%;
+    --input: 215 30% 20%;
+    --ring: 38 92% 50%;
+
+    --sidebar-background: 215 35% 8%;
+    --sidebar-foreground: 210 30% 90%;
+    --sidebar-primary: 38 92% 50%;
+    --sidebar-primary-foreground: 215 25% 15%;
+    --sidebar-accent: 215 30% 15%;
+    --sidebar-accent-foreground: 210 30% 95%;
+    --sidebar-border: 215 30% 15%;
+    --sidebar-ring: 38 92% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .stat-card {
+    @apply bg-card rounded-xl p-6 transition-all duration-300 hover:shadow-lg;
+    box-shadow: var(--shadow-md);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .data-table {
+    @apply w-full border-collapse;
+  }
+
+  .data-table th {
+    @apply text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground py-3 px-4 border-b;
+  }
+
+  .data-table td {
+    @apply py-4 px-4 border-b border-border/50;
+  }
+
+  .data-table tbody tr {
+    @apply transition-colors hover:bg-muted/50;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    background: var(--gradient-primary);
+    color: hsl(var(--primary-foreground));
+  }
+
+  .btn-primary:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    background: var(--gradient-gold);
+    color: hsl(var(--foreground));
+  }
+
+  .btn-accent:hover {
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-1px);
+  }
+
+  .page-header {
+    @apply mb-8;
+  }
+
+  .page-title {
+    @apply text-3xl font-semibold text-foreground mb-2;
+  }
+
+  .page-subtitle {
+    @apply text-muted-foreground;
+  }
+
+  .badge-status {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-available {
+    @apply bg-success/10 text-success;
+  }
+
+  .badge-sold {
+    @apply bg-destructive/10 text-destructive;
+  }
+
+  .badge-pending {
+    @apply bg-warning/10 text-warning;
+  }
+
+  .badge-rented {
+    @apply bg-primary/10 text-primary;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.3s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  @keyframes slideInLeft {
+    from { 
+      opacity: 0; 
+      transform: translateX(-20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateX(0); 
+    }
+  }
+
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+}
