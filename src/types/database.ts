@@ -9,121 +9,18 @@ export interface Property {
   size_properties: number;
 }
 
-// Client related types
-export interface Client {
-  client_id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  address?: string;
-  city?: string;
-  country?: string;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
-// Agent related types
-export interface Agent {
-  agent_id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  license: string;
-  branch_id?: string;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
-// Contract related types
-export interface Contract {
-  contract_id: string;
-  property_id: string;
-  client_id: string;
-  agent_id: string;
-  contract_date: Date;
-  signature_date?: Date;
-  status: 'draft' | 'signed' | 'completed' | 'cancelled';
-  value: number;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
-// Payment related types
-export interface Payment {
-  payment_id: string;
-  contract_id: string;
-  amount: number;
-  payment_date: Date;
-  payment_method: 'cash' | 'check' | 'transfer' | 'card';
-  status: 'pending' | 'completed' | 'failed';
-  created_at?: Date;
-  updated_at?: Date;
-}
-
 // Owner related types
 export interface Owner {
   owner_id: string;
-  first_name: string;
-  last_name: string;
+  f_name: string;
+  l_name: string;
   email: string;
   phone: string;
   address: string;
   property_id: string;
-  bank_account?: string;
-  created_at?: Date;
-  updated_at?: Date;
 }
 
-// Department related types
-export interface Department {
-  department_id: string;
-  name: string;
-  description?: string;
-  head_id?: string;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
-// Branch related types
-export interface Branch {
-  branch_id: string;
-  name: string;
-  city: string;
-  country: string;
-  phone: string;
-  email: string;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
-// Property Visit related types
-export interface PropertyVisit {
-  visit_id: string;
-  property_id: string;
-  client_id: string;
-  agent_id: string;
-  visit_date: Date;
-  notes?: string;
-  rating?: number;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
-// Listing related types
-export interface Listing {
-  listing_id: string;
-  property_id: string;
-  agent_id: string;
-  listing_date: Date;
-  expiry_date?: Date;
-  status: 'active' | 'inactive' | 'expired';
-  featured: boolean;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
+// Contract related types
 export interface Contract {
   contract_id: string;
   total_amount: number;
@@ -132,6 +29,7 @@ export interface Contract {
   property_id: string;
 }
 
+// Payment related types
 export interface Payment {
   payment_id: string;
   amount: number;
@@ -140,6 +38,7 @@ export interface Payment {
   contract_id: string;
 }
 
+// Client related types
 export interface Client {
   client_id: string;
   phone: string;
@@ -152,12 +51,14 @@ export interface Client {
   contract_id: string;
 }
 
+// Department related types
 export interface Department {
   department_id: string;
   department_name: string;
   department_location: string;
 }
 
+// Agent related types
 export interface Agent {
   agent_id: string;
   phone: string;
@@ -167,6 +68,7 @@ export interface Agent {
   department_id: string;
 }
 
+// Property Visit related types
 export interface PropertyVisit {
   visit_id: string;
   notes: string;
@@ -175,6 +77,7 @@ export interface PropertyVisit {
   agent_id: string;
 }
 
+// Branch related types
 export interface Branch {
   branch_id: string;
   phone: string;
@@ -184,15 +87,7 @@ export interface Branch {
   department_id: string;
 }
 
-export interface LoginUser {
-  login_id: string;
-  username: string;
-  user_password: string;
-  agent_id?: string;
-  client_id?: string;
-  owner_id?: string;
-}
-
+// Listing related types
 export interface Listing {
   listing_id: string;
   listing_date: string;
@@ -200,4 +95,14 @@ export interface Listing {
   price: number;
   property_id: string;
   agent_id: string;
+}
+
+// Login User type
+export interface LoginUser {
+  login_id: string;
+  username: string;
+  user_password: string;
+  agent_id?: string;
+  client_id?: string;
+  owner_id?: string;
 }
