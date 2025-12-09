@@ -10,8 +10,8 @@ import { useToast } from '@/hooks/use-toast';
 import { Building2, Mail, Lock, User, Loader2 } from 'lucide-react';
 import { z } from 'zod';
 
-const emailSchema = z.string().trim().email({ message: 'البريد الإلكتروني غير صحيح' });
-const passwordSchema = z.string().min(6, { message: 'كلمة المرور يجب أن تكون 6 أحرف على الأقل' });
+const emailSchema = z.string().trim().email({ message: 'Invalid email address' });
+const passwordSchema = z.string().min(6, { message: 'Password must be at least 6 characters' });
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Auth = () => {
     const emailResult = emailSchema.safeParse(signInEmail);
     if (!emailResult.success) {
       toast({
-        title: 'خطأ',
+        title: 'Error',
         description: emailResult.error.errors[0].message,
         variant: 'destructive',
       });
@@ -55,7 +55,7 @@ const Auth = () => {
     const passwordResult = passwordSchema.safeParse(signInPassword);
     if (!passwordResult.success) {
       toast({
-        title: 'خطأ',
+        title: 'Error',
         description: passwordResult.error.errors[0].message,
         variant: 'destructive',
       });
@@ -67,21 +67,21 @@ const Auth = () => {
     setIsLoading(false);
 
     if (error) {
-      let errorMessage = 'حدث خطأ أثناء تسجيل الدخول';
+      let errorMessage = 'An error occurred during sign in';
       if (error.message.includes('Invalid login credentials')) {
-        errorMessage = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+        errorMessage = 'Invalid email or password';
       } else if (error.message.includes('Email not confirmed')) {
-        errorMessage = 'يرجى تأكيد البريد الإلكتروني أولاً';
+        errorMessage = 'Please confirm your email first';
       }
       toast({
-        title: 'خطأ في تسجيل الدخول',
+        title: 'Sign In Error',
         description: errorMessage,
         variant: 'destructive',
       });
     } else {
       toast({
-        title: 'تم تسجيل الدخول',
-        description: 'مرحباً بك!',
+        title: 'Signed In',
+        description: 'Welcome back!',
       });
       navigate('/dashboard');
     }
@@ -94,7 +94,7 @@ const Auth = () => {
     const emailResult = emailSchema.safeParse(signUpEmail);
     if (!emailResult.success) {
       toast({
-        title: 'خطأ',
+        title: 'Error',
         description: emailResult.error.errors[0].message,
         variant: 'destructive',
       });
@@ -104,7 +104,7 @@ const Auth = () => {
     const passwordResult = passwordSchema.safeParse(signUpPassword);
     if (!passwordResult.success) {
       toast({
-        title: 'خطأ',
+        title: 'Error',
         description: passwordResult.error.errors[0].message,
         variant: 'destructive',
       });
@@ -113,8 +113,8 @@ const Auth = () => {
 
     if (signUpPassword !== signUpConfirmPassword) {
       toast({
-        title: 'خطأ',
-        description: 'كلمات المرور غير متطابقة',
+        title: 'Error',
+        description: 'Passwords do not match',
         variant: 'destructive',
       });
       return;
@@ -125,21 +125,21 @@ const Auth = () => {
     setIsLoading(false);
 
     if (error) {
-      let errorMessage = 'حدث خطأ أثناء إنشاء الحساب';
+      let errorMessage = 'An error occurred while creating the account';
       if (error.message.includes('User already registered')) {
-        errorMessage = 'هذا البريد الإلكتروني مسجل بالفعل';
+        errorMessage = 'This email is already registered';
       } else if (error.message.includes('Password')) {
-        errorMessage = 'كلمة المرور ضعيفة جداً';
+        errorMessage = 'Password is too weak';
       }
       toast({
-        title: 'خطأ في إنشاء الحساب',
+        title: 'Sign Up Error',
         description: errorMessage,
         variant: 'destructive',
       });
     } else {
       toast({
-        title: 'تم إنشاء الحساب',
-        description: 'مرحباً بك! يمكنك الآن تسجيل الدخول',
+        title: 'Account Created',
+        description: 'Welcome! You can now sign in',
       });
       navigate('/dashboard');
     }
@@ -162,10 +162,10 @@ const Auth = () => {
           </div>
           <div>
             <CardTitle className="text-2xl font-bold text-foreground">
-              نظام إدارة العقارات
+              Real Estate Management
             </CardTitle>
             <CardDescription className="text-muted-foreground mt-2">
-              سجل دخولك أو أنشئ حساباً جديداً
+              Sign in or create a new account
             </CardDescription>
           </div>
         </CardHeader>
@@ -173,40 +173,39 @@ const Auth = () => {
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="signin">تسجيل الدخول</TabsTrigger>
-              <TabsTrigger value="signup">حساب جديد</TabsTrigger>
+              <TabsTrigger value="signin">Sign In</TabsTrigger>
+              <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
             
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email" className="text-foreground">البريد الإلكتروني</Label>
+                  <Label htmlFor="signin-email" className="text-foreground">Email</Label>
                   <div className="relative">
-                    <Mail className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signin-email"
                       type="email"
                       placeholder="example@email.com"
                       value={signInEmail}
                       onChange={(e) => setSignInEmail(e.target.value)}
-                      className="pr-10 text-left"
-                      dir="ltr"
+                      className="pl-10"
                       required
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password" className="text-foreground">كلمة المرور</Label>
+                  <Label htmlFor="signin-password" className="text-foreground">Password</Label>
                   <div className="relative">
-                    <Lock className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signin-password"
                       type="password"
                       placeholder="••••••••"
                       value={signInPassword}
                       onChange={(e) => setSignInPassword(e.target.value)}
-                      className="pr-10"
+                      className="pl-10"
                       required
                     />
                   </div>
@@ -215,11 +214,11 @@ const Auth = () => {
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? (
                     <>
-                      <Loader2 className="ml-2 h-4 w-4 animate-spin" />
-                      جارٍ تسجيل الدخول...
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Signing in...
                     </>
                   ) : (
-                    'تسجيل الدخول'
+                    'Sign In'
                   )}
                 </Button>
               </form>
@@ -229,26 +228,26 @@ const Auth = () => {
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="first-name" className="text-foreground">الاسم الأول</Label>
+                    <Label htmlFor="first-name" className="text-foreground">First Name</Label>
                     <div className="relative">
-                      <User className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="first-name"
                         type="text"
-                        placeholder="أحمد"
+                        placeholder="John"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="pr-10"
+                        className="pl-10"
                       />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="last-name" className="text-foreground">الاسم الأخير</Label>
+                    <Label htmlFor="last-name" className="text-foreground">Last Name</Label>
                     <Input
                       id="last-name"
                       type="text"
-                      placeholder="محمد"
+                      placeholder="Doe"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                     />
@@ -256,49 +255,48 @@ const Auth = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email" className="text-foreground">البريد الإلكتروني</Label>
+                  <Label htmlFor="signup-email" className="text-foreground">Email</Label>
                   <div className="relative">
-                    <Mail className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signup-email"
                       type="email"
                       placeholder="example@email.com"
                       value={signUpEmail}
                       onChange={(e) => setSignUpEmail(e.target.value)}
-                      className="pr-10 text-left"
-                      dir="ltr"
+                      className="pl-10"
                       required
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password" className="text-foreground">كلمة المرور</Label>
+                  <Label htmlFor="signup-password" className="text-foreground">Password</Label>
                   <div className="relative">
-                    <Lock className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signup-password"
                       type="password"
                       placeholder="••••••••"
                       value={signUpPassword}
                       onChange={(e) => setSignUpPassword(e.target.value)}
-                      className="pr-10"
+                      className="pl-10"
                       required
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="confirm-password" className="text-foreground">تأكيد كلمة المرور</Label>
+                  <Label htmlFor="confirm-password" className="text-foreground">Confirm Password</Label>
                   <div className="relative">
-                    <Lock className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="confirm-password"
                       type="password"
                       placeholder="••••••••"
                       value={signUpConfirmPassword}
                       onChange={(e) => setSignUpConfirmPassword(e.target.value)}
-                      className="pr-10"
+                      className="pl-10"
                       required
                     />
                   </div>
@@ -307,11 +305,11 @@ const Auth = () => {
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? (
                     <>
-                      <Loader2 className="ml-2 h-4 w-4 animate-spin" />
-                      جارٍ إنشاء الحساب...
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Creating account...
                     </>
                   ) : (
-                    'إنشاء حساب'
+                    'Create Account'
                   )}
                 </Button>
               </form>
